@@ -1,0 +1,9 @@
+# Object files
+obj
+*.o
+
+# # libraries
+*.a
+
+# DS_Store
+**/.DS_Store
