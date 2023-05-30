@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:09 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/05/30 17:37:21 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/05/30 17:55:48 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ typedef struct s_pipex
 }							t_pipex;
 
 void	input_parse(char *argv, t_pipex pipex, int fd1, int fd2);
+char	*get_next_line(int fd);
 
 #endif

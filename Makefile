@@ -6,12 +6,12 @@
 #    By: dreijans <dreijans@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/24 17:03:57 by dreijans      #+#    #+#                  #
-#    Updated: 2023/05/30 17:37:08 by dreijans      ########   odam.nl          #
+#    Updated: 2023/05/30 18:05:01 by dreijans      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= pipex
-LIBFT	= ./Libft/libft.a
+LIBFT	= ./LIBFT/libft.a
 CC		= cc
 CFLAGS	= -Wall -Werror -Wextra
 SRC		= \
@@ -29,7 +29,7 @@ $(NAME): $(LIBFT) $(OBJ)
 
 $(LIBFT):
 		@git submodule update --init --recursive
-		@$(MAKE) -C ./Libft
+		@$(MAKE) -C ./LIBFT
 
 $(OBJDIR)/%.o: %.c
 		@mkdir -p $(OBJDIR)
@@ -40,11 +40,11 @@ $(OBJDIR)/%.o:
 		$(CC) $(CFLAGS) -c -o $@ $^
 
 clean:
-		@$(MAKE) clean -C ./Libft
+		@$(MAKE) clean -C ./LIBFT
 		@rm -rf $(OBJDIR)
 
 fclean: clean
-		@$(MAKE) fclean -C ./Libft
+		@$(MAKE) fclean -C ./LIBFT
 		@rm -f $(NAME)
 
 re:		fclean all

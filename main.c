@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/05/30 17:12:18 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/05/30 17:55:11 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ int	main(int argc, char **argv)
 	close (fd);
 	close (fd2);
 }
-
