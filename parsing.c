@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   parsing.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/05/30 17:12:18 by dreijans      ########   odam.nl         */
+/*   Created: 2023/05/30 16:10:35 by dreijans      #+#    #+#                 */
+/*   Updated: 2023/05/30 17:26:16 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// int	main(int argc, char **argv, char **envp)
-
-int	main(int argc, char **argv)
+void	input_parse(char *argv, t_pipex pipex, int fd1, int fd2)
 {
-	int		fd;
-	int		fd2;
-	t_pipex	*pipex;
+	int	i;
+	char buffer 
 
-	(void) argc;
-	pipex = ft_calloc(sizeof (t_pipex), 1);
-	fd = open("file1", O_RDONLY);
-	fd2 = open("file2", O_CREAT);
-	// while (1)
-	// {
-	// 	printf("done");
-	// 	return (EXIT_SUCCESS);
-	// }
-	// if (argc <= 1)
-	// 	return (EXIT_FAILURE);
-	input_parse(*argv, *pipex, fd, fd2);
-	close (fd);
-	close (fd2);
+	i = 1;
+	pipex.input_file = 
+	printf("%s\n", pipex.input_file);
+	pipex.output_file = 
+	printf("%s\n", pipex.output_file);
+	while (argv[i])
+	{
+		if (i == 1)
+			pipex.first_command = &argv[i];
+		if (i == 2)
+			pipex.second_command = &argv[i];
+		i++;
+	}
+	printf("%s\n", pipex.first_command);
+	printf("%s\n", pipex.second_command);
 }
-

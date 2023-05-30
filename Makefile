@@ -6,7 +6,7 @@
 #    By: dreijans <dreijans@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/24 17:03:57 by dreijans      #+#    #+#                  #
-#    Updated: 2023/05/26 17:49:36 by dreijans      ########   odam.nl          #
+#    Updated: 2023/05/30 17:37:08 by dreijans      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ NAME	= pipex
 LIBFT	= ./Libft/libft.a
 CC		= cc
 CFLAGS	= -Wall -Werror -Wextra
-HEADERS	= -I ./include -I $(LIBMLX)/include
 SRC		= \
 		main.c\
+		parsing.c\
 
 OBJ	= $(addprefix $(OBJDIR)/, $(notdir $(SRC:.c=.o)))
 
