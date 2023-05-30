@@ -6,7 +6,7 @@
 #    By: dreijans <dreijans@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/24 17:03:57 by dreijans      #+#    #+#                  #
-#    Updated: 2023/05/30 18:05:01 by dreijans      ########   odam.nl          #
+#    Updated: 2023/05/30 18:31:08 by dreijans      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ CC		= cc
 CFLAGS	= -Wall -Werror -Wextra
 SRC		= \
 		main.c\
-		parsing.c\
 
 OBJ	= $(addprefix $(OBJDIR)/, $(notdir $(SRC:.c=.o)))
 
