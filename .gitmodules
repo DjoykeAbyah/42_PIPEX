@@ -1,3 +1,6 @@
 [submodule "LIBFT"]
 	path = LIBFT
 	url = https://github.com/DjoykeAbyah/LIBFT.git
+[submodule "GET_NEXT_LINE"]
+	path = GET_NEXT_LINE
+	url = https://github.com/DjoykeAbyah/GET_NEXT_LINE.git
