@@ -4,3 +4,5 @@
 [submodule "GET_NEXT_LINE"]
 	path = GET_NEXT_LINE
 	url = https://github.com/DjoykeAbyah/GET_NEXT_LINE.git
+
+# if more recent version of LIBFT or any other submodule required do: git submodule update --remote <path> eg ./LIBFT

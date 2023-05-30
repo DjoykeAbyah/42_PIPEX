@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/30 16:10:35 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/05/30 17:26:16 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/05/30 17:44:13 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 void	input_parse(char *argv, t_pipex pipex, int fd1, int fd2)
 {
 	int	i;
-	char buffer 
 
 	i = 1;
-	pipex.input_file = 
+	pipex.input_file = get_next_line(fd1);
 	printf("%s\n", pipex.input_file);
-	pipex.output_file = 
+	pipex.output_file = get_next_line(fd2); 
 	printf("%s\n", pipex.output_file);
 	while (argv[i])
 	{
