@@ -6,7 +6,7 @@
 #    By: dreijans <dreijans@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/24 17:03:57 by dreijans      #+#    #+#                  #
-#    Updated: 2023/05/30 18:50:57 by dreijans      ########   odam.nl          #
+#    Updated: 2023/05/31 12:21:39 by dreijans      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ fclean: clean
 		@$(MAKE) fclean -C ./LIBFT
 		@rm -f $(NAME)
 		@rm -f $(LIBFT)
+		@rm -f file2
 
 re:		fclean all
 
