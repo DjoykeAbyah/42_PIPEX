@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/08 14:37:55 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/08 16:22:26 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) **envp;
 	parse_args(argv);
+	// print_array(envp);
 }
 
 void	parse_args(char **argv)
@@ -28,17 +29,26 @@ void	parse_args(char **argv)
 	args->output_file = argv[4];
 	args->first_command = ft_split(argv[2], ' ');
 	args->second_command = ft_split(argv[3], ' ');
-	printf("input file = %s\n", args->input_file);
-	printf("input file = %s\n", args->output_file);
-	printf("input file = %s\n", args->first_command[0]);
-	printf("input file = %s\n", args->first_command[1]);
-	printf("input file = %s\n", args->second_command[0]);
-	printf("input file = %s\n", args->second_command[1]);
+	print_array(args->first_command);
+	print_array(args->second_command);
 }
 
-void	path_acces()
+void	print_array(char **array)
 {
-	
+	int	i;
+
+	i = 0;
+	while (array[i] != NULL)
+	{
+		ft_printf("%s\n", array[i]);
+		i++;
+	}	
+}
+
+//stringcompare functie om PATH the vinden
+void	path_acces(char **envp)
+{
+		
 }
 /* // int	main(int argc, char **argv, char **envp)
 // {
