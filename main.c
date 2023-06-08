@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/08 16:22:26 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/08 16:39:27 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) **envp;
 	parse_args(argv);
-	// print_array(envp);
+	print_array(envp);
+	path_acces(envp);
 }
 
 void	parse_args(char **argv)
@@ -29,6 +30,7 @@ void	parse_args(char **argv)
 	args->output_file = argv[4];
 	args->first_command = ft_split(argv[2], ' ');
 	args->second_command = ft_split(argv[3], ' ');
+	args->path = ft_split(envp[])
 	print_array(args->first_command);
 	print_array(args->second_command);
 }
@@ -46,9 +48,21 @@ void	print_array(char **array)
 }
 
 //stringcompare functie om PATH the vinden
-void	path_acces(char **envp)
+int	path_acces(char **envp)
 {
-		
+	int	i;
+
+	i = 0;
+	while (envp[i] != NULL)
+	{
+		if (ft_strncmp(envp[i], "PATH", 4) == 0)
+		{
+			ft_printf("path indexnumber = %d\n", i);
+			return (i);
+		}
+		i++;
+	}
+	exit(EXIT_FAILURE);
 }
 /* // int	main(int argc, char **argv, char **envp)
 // {
