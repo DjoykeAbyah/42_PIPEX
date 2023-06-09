@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/09 16:53:40 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/09 17:12:11 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	parse_path(char **envp, t_pipex *args)
 	}
 }
 
-/* checks if the path acces with access()
+/* checks if the path acces with access() for the first command.
 zorg strjoin's freed  //&path[i] checks the character dumb dumb */
 void	check_access(t_pipex *args)
 {
@@ -81,3 +81,6 @@ void	check_access(t_pipex *args)
 	//zorg dat er iets gebeurd als de executable er niet is check bash error 
 	//No such file or directory// bash: /usr/bin/me: No such file or directory
 }
+
+//need to make it for the seconds command?
+//what happens if someone gives the full path?

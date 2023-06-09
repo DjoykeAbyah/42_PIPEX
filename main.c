@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/09 16:53:51 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/09 17:14:38 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,15 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	*args;
 
 	(void) argc;
+	if (argc != 5)
+		ft_printf("too few arguments");
 	args = parse_args(argv);
 	parse_path(envp, args);
 	check_access(args);
 }
+
+//improve error handling
+//create process!
 
 /* 
 int	main(int argc, char **argv, char **envp)
