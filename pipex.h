@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:09 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/09 15:00:53 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/09 16:26:31 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_pipex
 	char	*input_file;
 	char	*output_file;
 	char	**path;
+	char	*executable;
 	char	**first_command;
 	char	**second_command;
 }							t_pipex;

@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/09 15:56:04 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/09 16:47:27 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	*args;
-	
+
 	(void) argc;
 	args = parse_args(argv);
 	parse_path(envp, args);
@@ -66,35 +66,30 @@ void	parse_path(char **envp, t_pipex *args)
 	}
 }
 
-/* checks if the path acces with access() */
+/* checks if the path acces with access()
+zorg strjoin's freed  //&path[i] checks the character dumb dumb */
 void	check_access(t_pipex *args)
 {
 	char	*path;
 	char	*command;
-	char	*flag;
 	int		i;
-	int		j;
 
 	i = 0;
 	while (args->path[i] != NULL)
 	{
-		j = 0;
-		command = ft_strjoin("/", args->first_command[j]);
-		j = 1;
-		while (args->first_command[j])
+		command = ft_strjoin("/", args->first_command[0]);
+		path = ft_strjoin(args->path[i], command);
+		free(command);
+		if (access(path, F_OK) == 0)
 		{
-			flag = ft_strjoin(" ", args->first_command[j]);
-			command = ft_strjoin(command, flag);
-			path = ft_strjoin(args->path[i], command);
-			if (access(&path[i], X_OK || F_OK) == -1)
-				printf("nope\n");
-			else
-				printf("ye\n");
-			j++;
+			args->executable = path;
+			return ;
 		}
-		printf("full path : %s\n", path);
+		free(path);
 		i++;
 	}
+	//zorg dat er iets gebeurd als de executable er niet is check bash error 
+	//No such file or directory// bash: /usr/bin/me: No such file or directory
 }
 
 /* 
