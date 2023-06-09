@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/09 13:25:14 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/09 14:13:33 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	parse_args(argv, envp);
 }
 
+/* intitializing my struct */
 void	parse_args(char **argv, char **envp)
 {
 	t_pipex	*args;
@@ -28,8 +29,10 @@ void	parse_args(char **argv, char **envp)
 	args->first_command = ft_split(argv[2], ' ');
 	args->second_command = ft_split(argv[3], ' ');
 	path_acces(envp, args);
+	print_array(args->path);
 }
 
+/* prints arrays, for testing */
 void	print_array(char **array)
 {
 	int	i;
@@ -42,20 +45,25 @@ void	print_array(char **array)
 	}	
 }
 
-//stringcompare functie om PATH the vinden
-//use the allocted memory for once don't redeclare it you dumb dumb
+/* finds the PATH and stores it in a struct as a 2D array*/
 void	path_acces(char **envp, t_pipex *args)
 {
 	int		i;
+	char	*path;	
 
 	i = 0;
 	while (envp[i] != NULL)
 	{
 		if (ft_strncmp(envp[i], "PATH", 4) == 0)
-			args->path = ft_split(envp[i], ':');
+		{
+			path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
+			args->path = ft_split(path, ':');
+		}
 		i++;
 	}
 }
+
+//void join_acces check fucntion
 
 /* // int	main(int argc, char **argv, char **envp)
 // {
