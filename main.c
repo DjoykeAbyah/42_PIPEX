@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/08 16:39:27 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/09 13:25:14 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,10 @@
 int	main(int argc, char **argv, char **envp)
 {
 	(void) argc;
-	(void) **envp;
-	parse_args(argv);
-	print_array(envp);
-	path_acces(envp);
+	parse_args(argv, envp);
 }
 
-void	parse_args(char **argv)
+void	parse_args(char **argv, char **envp)
 {
 	t_pipex	*args;
 
@@ -30,9 +27,7 @@ void	parse_args(char **argv)
 	args->output_file = argv[4];
 	args->first_command = ft_split(argv[2], ' ');
 	args->second_command = ft_split(argv[3], ' ');
-	args->path = ft_split(envp[])
-	print_array(args->first_command);
-	print_array(args->second_command);
+	path_acces(envp, args);
 }
 
 void	print_array(char **array)
@@ -48,22 +43,20 @@ void	print_array(char **array)
 }
 
 //stringcompare functie om PATH the vinden
-int	path_acces(char **envp)
+//use the allocted memory for once don't redeclare it you dumb dumb
+void	path_acces(char **envp, t_pipex *args)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (envp[i] != NULL)
 	{
 		if (ft_strncmp(envp[i], "PATH", 4) == 0)
-		{
-			ft_printf("path indexnumber = %d\n", i);
-			return (i);
-		}
+			args->path = ft_split(envp[i], ':');
 		i++;
 	}
-	exit(EXIT_FAILURE);
 }
+
 /* // int	main(int argc, char **argv, char **envp)
 // {
 // 	int		fd;
