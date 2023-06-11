@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:09 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/09 16:26:31 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 00:01:25 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
+
+# define READ 0
+# define WRITE 1
 
 /* check how to find path
 commands exist of 2 parts command + flag
@@ -32,7 +35,7 @@ typedef struct s_pipex
 	char	**second_command;
 }							t_pipex;
 
-t_pipex		*parse_args(char **argv);
+t_pipex		*parse_args(int argc, char **argv);
 void		print_array(char **array);
 void		parse_path(char **envp, t_pipex *args);
 void		check_access(t_pipex *args);

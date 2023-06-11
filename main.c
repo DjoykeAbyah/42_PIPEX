@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/09 17:14:38 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 00:14:30 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,33 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	*args;
+	int		pid;
+	int		pipe_fd[2];
+	int		fd;
 
-	(void) argc;
 	if (argc != 5)
 		ft_printf("too few arguments");
-	args = parse_args(argv);
+	args = parse_args(argc, argv);
 	parse_path(envp, args);
 	check_access(args);
+	if (pipe(pipe_fd) == -1)
+		return (1);
+	pid = fork();
+	if (pid < 0)
+		return (2);
+	if (pid == 0)//child process 
+	{
+		close(pipe_fd[READ]);
+		fd = open("file1", O_RDONLY);
+		if (fd == -1)
+			return (3);//exit?
+		dup2(fd, STDIN_FILENO);
+		close(fd); //pas als ik hem gebruikt heb????
+		//write outcome exeve fd to pipe_fd[WRITE]???
+	}
+	//main process
+	//close(fd[WRITE])
+	//redirect STD_OUT to file2!
 }
 
 //improve error handling
