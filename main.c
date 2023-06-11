@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 00:14:30 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 00:19:54 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char **argv, char **envp)
 		dup2(fd, STDIN_FILENO);
 		close(fd); //pas als ik hem gebruikt heb????
 		//write outcome exeve fd to pipe_fd[WRITE]???
+		execve(const char *pathname, char *const argv[], char *const envp[])
 	}
 	//main process
 	//close(fd[WRITE])
