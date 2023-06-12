@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 12:16:48 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 12:47:14 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	main(int argc, char **argv, char **envp)
 		ft_printf("too few arguments");
 	args = parse_args(argv);
 	parse_path(envp, args);
-	check_access(args);
+	check_access1(args);
+	check_access2(args);
 	if (pipe(pipe_fd) == -1)
 		return (1);
 	pid1 = fork();
@@ -46,15 +47,15 @@ int	main(int argc, char **argv, char **envp)
 	}
 	if (pid2 == 0)
 	{
-		close(fd[WRITE]);
+		close(pipe_fd[WRITE]);
 		fd[1] = open("file2", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd[1] == 0)
 			return (5);
 		dup2(pipe_fd[READ], STDIN_FILENO);
-		dup2(pipe_fd[1], STDOUT_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
 		close(pipe_fd[READ]);
-		close(pipe_fd[1]);
-		if (execve(args->executable, args->second_command, envp) == -1)
+		close(fd[1]);
+		if (execve(args->executable2, args->second_command, envp) == -1)
 			return (6);
 	}
 }
@@ -62,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 //improve error handling
 //create process!
 //use exit instead of return?
-//need to make it for the seconds command?
+
 //what happens if someone gives the full path?
 // if file ./command the error needs to be specific
 //zorg dat er iets gebeurd als de executable er niet is check bash error 
