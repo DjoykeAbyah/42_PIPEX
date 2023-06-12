@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 16:42:32 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 17:03:26 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	int		fd[2];
 
 	if (argc != 5)
-		error("too few arguments", errno);//too few arguments?
+		error("too few arguments", errno);
 	args = parse_args(argv);
 	parse_path(envp, args);
 	check_access1(args, argv);
@@ -41,10 +41,9 @@ int	main(int argc, char **argv, char **envp)
 }
 
 //improve error handling
-//full path as command input handling
+//figure out correct error message for main.c:24
+//full path as command input handling scalable to number of argv
 //what happens if executable cant be found
-//access checks R_OK, W_OK, X_OK still neccesary
-//check if absolute path i dont have to check it?
 
 	// print_array(args->path);
 	// printf("%s\n",args->executable);
