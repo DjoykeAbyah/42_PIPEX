@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 16:09:29 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 16:42:32 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	main(int argc, char **argv, char **envp)
 		error("too few arguments", errno);//too few arguments?
 	args = parse_args(argv);
 	parse_path(envp, args);
-	check_access1(args);
-	check_access2(args);
+	check_access1(args, argv);
+	check_access2(args, argv);
 	if (pipe(pipe_fd) == -1)
 		error("pipe", errno);
 	pid1 = fork();
@@ -45,3 +45,9 @@ int	main(int argc, char **argv, char **envp)
 //what happens if executable cant be found
 //access checks R_OK, W_OK, X_OK still neccesary
 //check if absolute path i dont have to check it?
+
+	// print_array(args->path);
+	// printf("%s\n",args->executable);
+	// printf("%s\n",args->executable2);
+	// print_array(args->first_command);
+	// print_array(args->second_command);

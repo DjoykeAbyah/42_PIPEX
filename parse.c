@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 16:11:18 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 16:50:52 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,15 @@ void	parse_path(char **envp, t_pipex *args)
 /* checks if the path acces with access() for the first command.
 zorg strjoin's freed  //&path[i] checks the character dumb dumb
 //need to make it for the seconds command? */
-void	check_access1(t_pipex *args)
+void	check_access1(t_pipex *args, char **argv)
 {
 	char	*path;
 	char	*command;
 	int		i;
 
 	i = 0;
+	if (access(argv[2], F_OK) == 0)
+		args->executable = argv[2];
 	while (args->path[i] != NULL)
 	{
 		command = ft_strjoin("/", args->first_command[0]);
@@ -72,18 +74,19 @@ void	check_access1(t_pipex *args)
 /* checks if the path acces with access() for the first command.
 zorg strjoin's freed  //&path[i] checks the character dumb dumb
 //need to make it for the seconds command? */
-void	check_access2(t_pipex *args)
+void	check_access2(t_pipex *args, char **argv)
 {
 	char	*path;
 	char	*command;
 	int		i;
 
 	i = 0;
+	if (access(argv[3], F_OK) == 0)
+		args->executable = argv[3];
 	while (args->path[i] != NULL)
 	{
 		command = ft_strjoin("/", args->second_command[0]);
 		path = ft_strjoin(args->path[i], command);
-		//if argv[2] or argv[3] acces F_OK argv[2/3] is executable
 		free(command);
 		if (access(path, F_OK) == 0)
 		{
@@ -115,4 +118,4 @@ void	error(char *string, int error)
 // 		ft_printf("%s\n", array[i]);
 // 		i++;
 // 	}	
-// }.
+// }

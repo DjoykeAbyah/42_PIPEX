@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:54:14 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 15:33:10 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 16:45:37 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	child_1(int *fd, int *pipe_fd, t_pipex args, char **envp)
 	dup2(pipe_fd[WRITE], STDOUT_FILENO);
 	close(fd[0]);
 	close(pipe_fd[WRITE]);
+	if (access(args.executable, X_OK) != 0)
+		error("path1", errno);
 	if (execve(args.executable, args.first_command, envp) == -1)
 		exit(EXIT_FAILURE);
 }
@@ -36,6 +38,8 @@ void	child_2(int *fd, int *pipe_fd, t_pipex args, char **envp)
 	dup2(fd[1], STDOUT_FILENO);
 	close(pipe_fd[READ]);
 	close(fd[1]);
+	if (access(args.executable, X_OK) != 0)
+		error("path2", errno);
 	if (execve(args.executable2, args.second_command, envp) == -1)
 		exit(EXIT_FAILURE);
 }

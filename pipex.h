@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:09 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 15:32:33 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 16:35:09 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ typedef struct s_pipex
 t_pipex		*parse_args(char **argv);
 void		print_array(char **array);
 void		parse_path(char **envp, t_pipex *args);
-void		check_access1(t_pipex *args);
-void		check_access2(t_pipex *args);
+void		check_access1(t_pipex *args, char **argv);
+void		check_access2(t_pipex *args, char **argv);
 void		error(char *string, int error);
 void		child_1(int *fd, int *pipe_fd, t_pipex args, char **envp);
 void		child_2(int *fd, int *pipe_fd, t_pipex args, char **envp);
