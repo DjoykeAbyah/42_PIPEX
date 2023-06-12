@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 14:55:33 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 15:04:06 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ void	check_access2(t_pipex *args)
 	}
 }
 
-void	error(char *string, int errno)
+void	error(char *string, int error)
 {
 	perror(string);
-	exit(EXIT_FAILURE);
+	exit(error);
 }
 // void	fd_check(int fd1, int fd2)
 // {
@@ -114,4 +114,4 @@ void	error(char *string, int errno)
 // 		ft_printf("%s\n", array[i]);
 // 		i++;
 // 	}	
-// }
+// }.
