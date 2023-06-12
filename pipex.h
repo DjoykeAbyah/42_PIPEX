@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:09 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 12:46:36 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 14:46:19 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <errno.h>
+# include <sys/errno.h>
 
 # define READ 0
 # define WRITE 1
@@ -41,5 +43,6 @@ void		print_array(char **array);
 void		parse_path(char **envp, t_pipex *args);
 void		check_access1(t_pipex *args);
 void		check_access2(t_pipex *args);
+void		error(char *string, int errno);
 
 #endif

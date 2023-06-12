@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 12:47:05 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 14:55:33 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,6 @@ t_pipex	*parse_args(char **argv)
 	return (args);
 }
 
-/* prints arrays, for testing */
-void	print_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i] != NULL)
-	{
-		ft_printf("%s\n", array[i]);
-		i++;
-	}	
-}
 
 /* finds the PATH and stores it in a struct as a 2D array*/
 void	parse_path(char **envp, t_pipex *args)
@@ -106,6 +94,24 @@ void	check_access2(t_pipex *args)
 	}
 }
 
+void	error(char *string, int errno)
+{
+	perror(string);
+	exit(EXIT_FAILURE);
+}
 // void	fd_check(int fd1, int fd2)
 // {
+// }
+
+/* prints arrays, for testing */
+// void	print_array(char **array)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (array[i] != NULL)
+// 	{
+// 		ft_printf("%s\n", array[i]);
+// 		i++;
+// 	}	
 // }

@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 12:47:14 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 14:55:48 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int argc, char **argv, char **envp)
 	if (pipe(pipe_fd) == -1)
 		return (1);
 	pid1 = fork();
-	pid2 = fork();
 	if (pid1 < 0)
 		return (2);
 	if (pid1 == 0)
@@ -37,14 +36,15 @@ int	main(int argc, char **argv, char **envp)
 		close(pipe_fd[READ]);
 		fd[0] = open("file1", O_RDONLY);
 		if (fd[0] == -1)
-			return (3);
+			error("fd", errno);
 		dup2(fd[0], STDIN_FILENO);
 		dup2(pipe_fd[WRITE], STDOUT_FILENO);
 		close(fd[0]);
 		close(pipe_fd[WRITE]);
 		if (execve(args->executable, args->first_command, envp) == -1)
-			return (4);
+			exit(EXIT_FAILURE);
 	}
+	pid2 = fork();
 	if (pid2 == 0)
 	{
 		close(pipe_fd[WRITE]);
@@ -56,15 +56,13 @@ int	main(int argc, char **argv, char **envp)
 		close(pipe_fd[READ]);
 		close(fd[1]);
 		if (execve(args->executable2, args->second_command, envp) == -1)
-			return (6);
+			exit(EXIT_FAILURE);
 	}
 }
 
 //improve error handling
 //create process!
 //use exit instead of return?
-
 //what happens if someone gives the full path?
 // if file ./command the error needs to be specific
 //zorg dat er iets gebeurd als de executable er niet is check bash error 
-//No such file or directory// bash: /usr/bin/me: No such file or directory
