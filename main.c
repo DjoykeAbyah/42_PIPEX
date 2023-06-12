@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 15:34:39 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 16:09:29 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int argc, char **argv, char **envp)
 }
 
 //improve error handling
-//what happens if someone gives the full path?
-// if file ./command the error needs to be specific
-//zorg dat er iets gebeurd als de executable er niet is check bash error 
+//full path as command input handling
+//what happens if executable cant be found
+//access checks R_OK, W_OK, X_OK still neccesary
+//check if absolute path i dont have to check it?
