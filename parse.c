@@ -6,14 +6,14 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/11 23:56:03 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/12 11:43:26 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 /* intitializing my struct */
-t_pipex	*parse_args(int argc, char **argv)
+t_pipex	*parse_args(char **argv)
 {
 	t_pipex	*args;
 
@@ -78,15 +78,8 @@ void	check_access(t_pipex *args)
 		free(path);
 		i++;
 	}
-	//zorg dat er iets gebeurd als de executable er niet is check bash error 
-	//No such file or directory// bash: /usr/bin/me: No such file or directory
 }
 
 // void	fd_check(int fd1, int fd2)
 // {
-	
 // }
-
-//need to make it for the seconds command?
-//what happens if someone gives the full path?
-// if file ./command the error needs to be specific
