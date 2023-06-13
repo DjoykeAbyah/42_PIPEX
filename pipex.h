@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:09 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/13 21:03:52 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/13 21:17:07 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 # define READ 0
 # define WRITE 1
 
-/* check how to find path
-commands exist of 2 parts command + flag
-*/
 typedef struct s_pipex
 {
 	char	**argv;
@@ -45,5 +42,6 @@ char		*check_access(t_pipex *args, char *base_command);
 void		error(char *string, int error);
 void		child_1(int *fd, int *pipe_fd, t_pipex *args, char **envp);
 void		child_2(int *fd, int *pipe_fd, t_pipex *args, char **envp);
+void		status_check(int pid1, int pid2);
 
 #endif

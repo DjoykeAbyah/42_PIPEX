@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/13 21:07:19 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/13 21:16:56 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,6 @@ void	error(char *string, int error)
 	perror(string);
 	exit(error);
 }
-
-// /* prints arrays, for testing */
-// void	print_array(char **array)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (array[i] != NULL)
-// 	{
-// 		ft_printf("%s\n", array[i]);
-// 		i++;
-// 	}	
-// }
 
 // /* OLD checks if the path acces with access() for the second command */
 // void	check_access2(t_pipex *args, char **argv)
