@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/12 17:03:26 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/13 13:31:34 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	int		fd[2];
 
 	if (argc != 5)
-		error("too few arguments", errno);
+		error("./pipex: too few arguments", errno);//errno has nothing so maybe different function?
 	args = parse_args(argv);
 	parse_path(envp, args);
 	check_access1(args, argv);
@@ -44,9 +44,5 @@ int	main(int argc, char **argv, char **envp)
 //figure out correct error message for main.c:24
 //full path as command input handling scalable to number of argv
 //what happens if executable cant be found
-
-	// print_array(args->path);
-	// printf("%s\n",args->executable);
-	// printf("%s\n",args->executable2);
-	// print_array(args->first_command);
-	// print_array(args->second_command);
+//check acces1/2 check command absolute path->execute if not (path not found)
+// what if environment null? not crashing!!!????
