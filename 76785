@@ -1,0 +1,6 @@
+leaks Report Version: 4.0
+Process 76785: 177 nodes malloced for 14 KB
+Process 76785: 1 leak for 96 total leaked bytes.
+
+    1 (96 bytes) ROOT LEAK: 0x7f9220402af0 [96]  length: 87  "/Users/dreijans/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/m..."
+

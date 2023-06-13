@@ -6,46 +6,55 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/13 19:27:19 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/13 21:07:57 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+void leaks(void)
+{
+	pid_t pid = getpid();
+	char *s;
+	asprintf(&s, "leaks -q %d > %d", pid, pid);
+	system(s);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	*args;
-	int		pid1;
-	int		pid2;
+	int		pid[2];
 	int		pipe_fd[2];
 	int		fd[2];
-	int		status;//put in the struct zet op 0 wieeeh
+	int		status;
 
+	atexit(&leaks);
 	if (argc != 5)
-		error("./pipex: too few arguments", errno);
+		error("./pipex: too few or little arguments", errno);
 	args = parse_args(argv);
 	parse_path(envp, args);
-	check_access1(args, argv);
-	check_access2(args, argv);
 	if (pipe(pipe_fd) == -1)
 		error("pipe", errno);
-	pid1 = fork();
-	if (pid1 < 0)
+	pid[0] = fork();
+	if (pid[0] < 0)
 		error("fork", errno);
-	if (pid1 == 0)
-		child_1(fd, pipe_fd, *args, envp);
-	pid2 = fork();
-	if (pid2 < 0)
+	if (pid[0] == 0)
+		child_1(fd, pipe_fd, args, envp);
+	pid[1] = fork();
+	if (pid[1] < 0)
 		error("fork", errno);
-	if (pid2 == 0)
-		child_2(fd, pipe_fd, *args, envp);
-	waitpid(pid1, &status, 0);
-	waitpid(pid2, &status, 0);
+	if (pid[1] == 0)
+		child_2(fd, pipe_fd, args, envp);
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	waitpid(pid[0], NULL, 0);
+	waitpid(pid[1], &status, 0);
 	if (WIFEXITED(status))
 		exit(WEXITSTATUS(status));
 }
 
-//improve error handling
+//everything before the pipe needs no error code everything after needs it
+//why close in the main function?
 //figure out correct error message for main.c:24
 //errno has nothing so maybe different function?
 //full path as command input handling scalable to number of argv
@@ -115,9 +124,9 @@ path: Bad address
 // 	}	
 // }
 
-// /* checks if the path acces with access() for the first command.
-// zorg strjoin's freed  //&path[i] checks the character dumb dumb
-// //need to make it for the seconds command? */
+/* checks if the path acces with access() for the first command.
+zorg strjoin's freed  //&path[i] checks the character dumb dumb
+//need to make it for the seconds command? */
 // void	check_access1(t_pipex *args, char **argv)
 // {
 // 	char	*path;

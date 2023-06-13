@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/13 19:26:44 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/13 21:07:19 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,15 @@
 t_pipex	*parse_args(char **argv)
 {
 	t_pipex	*args;
-	int		test;
 
-	test = open(argv[1], O_RDONLY);
-	if (test < 0)
-		exit(EXIT_FAILURE);
-	close(test);
 	args = ft_calloc(sizeof (t_pipex), 1);
 	args->input_file = argv[1];
 	args->output_file = argv[4];
 	args->first_command = ft_split(argv[2], ' ');
 	args->second_command = ft_split(argv[3], ' ');
 	args->path = NULL;
+	args->status = 0;
+	args->argv = argv;
 	return (args);
 }
 
@@ -38,7 +35,7 @@ void	parse_path(char **envp, t_pipex *args)
 	char	*path;	
 
 	i = 0;
-	while (envp && envp[i] != NULL)
+	while (envp[i] != NULL)
 	{
 		if (ft_strncmp(envp[i], "PATH", 4) == 0)
 		{
@@ -52,74 +49,26 @@ void	parse_path(char **envp, t_pipex *args)
 }
 
 /* checks if the path acces with access() for the first command */
-void	check_access1(t_pipex *args, char **argv)
+char	*check_access(t_pipex *args, char *base_command)
 {
 	char	*path;
 	char	*command;
 	int		i;
 
 	i = 0;
-	if (access(argv[2], F_OK) == 0)
+	if (ft_strchr(base_command, '/'))
+		return (base_command);
+	while (args->path && args->path[i] != NULL)
 	{
-		args->executable = argv[2];
-		return ;
-	}
-	if (!args->path)
-		args->path = ft_split(argv[2], ':');
-	if (!args->path)
-		error("path", errno);
-	while (args->path[i] != NULL)
-	{
-		if (args->first_command[0][0] != '/')
-			command = ft_strjoin("/", args->first_command[0]);
-		else
-			command = ft_strjoin("", args->first_command[0]);
+		command = ft_strjoin("/", base_command);
 		path = ft_strjoin(args->path[i], command);
 		free(command);
 		if (access(path, F_OK) == 0)
-		{
-			args->executable = path;
-			return ;
-		}
+			return (path);
 		free(path);
 		i++;
 	}
-}
-
-/* checks if the path acces with access() for the second command */
-void	check_access2(t_pipex *args, char **argv)
-{
-	char	*path;
-	char	*command;
-	int		i;
-
-	i = 0;
-	if (access(argv[3], F_OK) == 0)
-	{
-		args->executable2 = argv[3];
-		return ;
-	}
-	if (!args->path)
-		args->path = ft_split(argv[3], ':');
-	if (!args->path)
-		error("path", errno);
-	while (args->path[i] != NULL)
-	{
-		// path = command_check(args->second_command);
-		if (args->second_command[0][0] != '/')
-			command = ft_strjoin("/", args->second_command[0]);
-		else
-			command = ft_strjoin("", args->second_command[0]);
-		path = ft_strjoin(args->path[i], command);
-		free(command);
-		if (access(path, F_OK) == 0)
-		{
-			args->executable2 = path;
-			return ;
-		}
-		free(path);
-		i++;
-	}
+	return (base_command);//???? of NULL
 }
 
 void	error(char *string, int error)
@@ -127,3 +76,49 @@ void	error(char *string, int error)
 	perror(string);
 	exit(error);
 }
+
+// /* prints arrays, for testing */
+// void	print_array(char **array)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (array[i] != NULL)
+// 	{
+// 		ft_printf("%s\n", array[i]);
+// 		i++;
+// 	}	
+// }
+
+// /* OLD checks if the path acces with access() for the second command */
+// void	check_access2(t_pipex *args, char **argv)
+// {
+// 	char	*path;
+// 	char	*command;
+// 	int		i;
+
+// 	i = 0;
+// 	if (access(argv[3], F_OK) == 0)
+// 	{
+// 		args->executable2 = argv[3];
+// 		return ;
+// 	}
+// 	if (!args->path)
+// 		args->path = ft_split(argv[3], ':');
+// 	if (!args->path)
+// 		error("path", errno);
+// 	while (args->path[i] != NULL)
+// 	{
+// 		// path = command_check(args->second_command);
+// 		command = ft_strjoin("/", args->second_command[0]);
+// 		path = ft_strjoin(args->path[i], command);
+// 		free(command);
+// 		if (access(path, F_OK) == 0)
+// 		{
+// 			args->executable2 = path;
+// 			return ;
+// 		}
+// 		free(path);
+// 		i++;
+// 	}
+// }
