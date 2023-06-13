@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/13 21:18:09 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/13 21:19:19 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	main(int argc, char **argv, char **envp)
 //figure out correct error message for main.c:24
 //errno has nothing so maybe different function?
 //what happens if executable cant be found
-//check error message for permissions 
+//check error message for permissions
+//check bash error messages below
 
 /*
 bash: no job control in this shell
