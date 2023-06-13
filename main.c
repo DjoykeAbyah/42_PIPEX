@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/13 13:31:34 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/13 15:50:49 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,5 @@ int	main(int argc, char **argv, char **envp)
 //what happens if executable cant be found
 //check acces1/2 check command absolute path->execute if not (path not found)
 // what if environment null? not crashing!!!????
+//check if path is unset!
+//check if environment is unset
