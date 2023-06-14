@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/13 21:19:19 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/14 16:42:55 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 
 	// atexit(&leaks);
 	if (argc != 5)
-		error("./pipex: too few or little arguments", errno);
+		error("./pipex: incorrect arguments", errno);
 	args = parse_args(argv);
 	parse_path(envp, args);
 	if (pipe(pipe_fd) == -1)
@@ -44,20 +44,37 @@ int	main(int argc, char **argv, char **envp)
 		error("fork", errno);
 	if (pid[1] == 0)
 		child_2(fd, pipe_fd, args, envp);
-	close(pipe_fd[0]);
+	close(pipe_fd[0]);//protect close!!
 	close(pipe_fd[1]);
-	status_check(pid[0], pid[1]);
+	close(fd[0]);
+	close(fd[1]);
+	status_check(pid[1]);
 }
 
-//do leak check
+//make main smaller
+//add specific error message in parse path???
+// check X_OK in parse path??
+/* check for empty string
+bash-3.2$ ./pipex file1 "" "" file2
+bash-3.2$ <file1 "" "" > file2
+bash: : command not found
+bash-3.2$ echo $?
+127
+bash-3.2$ < file1 "" "" > file2
+bash: : command not found
+bash-3.2$ <file1 "" | "" > file2
+bash: : command not found
+bash: : command not found
+bash-3.2$ ./pipex file1 "" "" file2
+bash-3.2$ echo $?
+0
+
+//check permissions on your own instead of letting execve handle it
 //check inner workings of status check
-//figure out correct error message for main.c:24
-//errno has nothing so maybe different function?
 //what happens if executable cant be found
 //check error message for permissions
 //check bash error messages below
 
-/*
 bash: no job control in this shell
 bash-3.2$ <file1 bin/cat | bin/cat > file2
 bash: bin/cat: No such file or directory
@@ -75,22 +92,3 @@ path: Bad address
 //bash: file--1: No such file or directory
 //pipex.c:41 geeft bad address //bash: cat: No such file or directory
 // try recreating this
-
-/* prints arrays, for testing */
-// void	print_array(char **array)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (array[i] != NULL)
-// 	{
-// 		ft_printf("%s\n", array[i]);
-// 		i++;
-// 	}	
-// }
-
-	// print_array(args->path);
-	// printf("%s\n",args->executable);
-	// printf("%s\n",args->executable2);
-	// print_array(args->first_command);
-	// print_array(args->second_command);

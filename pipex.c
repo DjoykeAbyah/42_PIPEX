@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:54:14 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/13 21:15:50 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/14 14:21:23 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	child_1(int *fd, int *pipe_fd, t_pipex *args, char **envp)
 	close(pipe_fd[WRITE]);
 	executable = check_access(args, args->first_command[0]);
 	if (execve(executable, args->first_command, envp) == -1)
-		error("execve1", errno);
+		error("execve_1", errno);
 }
 
 /* second child process */
@@ -45,26 +45,18 @@ void	child_2(int *fd, int *pipe_fd, t_pipex *args, char **envp)
 	close(fd[1]);
 	executable = check_access(args, args->second_command[0]);
 	if (execve(executable, args->second_command, envp) == -1)
-		error("execve2", errno);
+		error("execve_2", errno);
 }
 
 /* checks exit status, only needs it for the second child because 
-everything before the pipe needs no error code everything after needs it*/
-void	status_check(int pid1, int pid2)
+everything before the pipe needs no error code everything after needs it
+wait is called for child process 1 because i dont need that staus to exit*/
+void	status_check(int pid2)
 {
 	int	status;
 
-	waitpid(pid1, NULL, 0);
 	waitpid(pid2, &status, 0);
+	wait(NULL);
 	if (WIFEXITED(status))
 		exit(WEXITSTATUS(status));
 }
-
-// void	error(char *string, int error)
-// {
-// 	// write(1, "./pipex: ", 10);
-// 	// write(1, string, ft_strlen(string));
-// 	// write(1, strerror(errno), ft_strlen(strerror(errno)));
-// 	perror(string);
-// 	exit(error);
-// }

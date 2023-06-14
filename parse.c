@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/13 21:16:56 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/14 16:37:41 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	parse_path(char **envp, t_pipex *args)
 		{
 			path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
 			args->path = ft_split(path, ':');
+			free (path);
 			if (args->path == NULL)
 				error ("path", errno);
 		}
@@ -68,7 +69,7 @@ char	*check_access(t_pipex *args, char *base_command)
 		free(path);
 		i++;
 	}
-	return (base_command);//???? of NULL
+	return (base_command);
 }
 
 void	error(char *string, int error)
@@ -77,35 +78,9 @@ void	error(char *string, int error)
 	exit(error);
 }
 
-// /* OLD checks if the path acces with access() for the second command */
-// void	check_access2(t_pipex *args, char **argv)
-// {
-// 	char	*path;
-// 	char	*command;
-// 	int		i;
-
-// 	i = 0;
-// 	if (access(argv[3], F_OK) == 0)
-// 	{
-// 		args->executable2 = argv[3];
-// 		return ;
-// 	}
-// 	if (!args->path)
-// 		args->path = ft_split(argv[3], ':');
-// 	if (!args->path)
-// 		error("path", errno);
-// 	while (args->path[i] != NULL)
-// 	{
-// 		// path = command_check(args->second_command);
-// 		command = ft_strjoin("/", args->second_command[0]);
-// 		path = ft_strjoin(args->path[i], command);
-// 		free(command);
-// 		if (access(path, F_OK) == 0)
-// 		{
-// 			args->executable2 = path;
-// 			return ;
-// 		}
-// 		free(path);
-// 		i++;
-// 	}
-// }
+/* check if close failed meh */
+void	close_check(int num)
+{
+	if (close(num) < 0)
+		error("close", errno);
+}
