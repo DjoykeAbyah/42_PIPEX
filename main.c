@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/14 16:42:55 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/15 21:10:40 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	*args;
 	int		pid[2];
 	int		pipe_fd[2];
-	int		fd[2];
 
 	// atexit(&leaks);
 	if (argc != 5)
@@ -38,57 +37,39 @@ int	main(int argc, char **argv, char **envp)
 	if (pid[0] < 0)
 		error("fork", errno);
 	if (pid[0] == 0)
-		child_1(fd, pipe_fd, args, envp);
+		child_1(pipe_fd, args, envp);
 	pid[1] = fork();
 	if (pid[1] < 0)
 		error("fork", errno);
 	if (pid[1] == 0)
-		child_2(fd, pipe_fd, args, envp);
-	close(pipe_fd[0]);//protect close!!
-	close(pipe_fd[1]);
-	close(fd[0]);
-	close(fd[1]);
+		child_2(pipe_fd, args, envp);
+	close_pipes(pipe_fd);
 	status_check(pid[1]);
 }
 
-//make main smaller
-//add specific error message in parse path???
-// check X_OK in parse path??
-/* check for empty string
-bash-3.2$ ./pipex file1 "" "" file2
-bash-3.2$ <file1 "" "" > file2
-bash: : command not found
-bash-3.2$ echo $?
-127
-bash-3.2$ < file1 "" "" > file2
-bash: : command not found
-bash-3.2$ <file1 "" | "" > file2
-bash: : command not found
-bash: : command not found
-bash-3.2$ ./pipex file1 "" "" file2
-bash-3.2$ echo $?
-0
+// -----------------------------------------------------------------------
 
-//check permissions on your own instead of letting execve handle it
 //check inner workings of status check
-//what happens if executable cant be found
-//check error message for permissions
 //check bash error messages below
 
-bash: no job control in this shell
-bash-3.2$ <file1 bin/cat | bin/cat > file2
-bash: bin/cat: No such file or directory
-bash: bin/cat: No such file or directory
-bash-3.2$ exit
-exit
+//------------------------------------------------------------------------
 
-PIPEX_HOME on  master [!?] took 34.3s 
-➜ ./pipex file1 bin/cat bin/cat file2
-path: Bad address
-path: Bad address
-*/
+// check for empty string // do i need to give the same error message?
+// bash-3.2$ ./pipex file1 "" "" file2
+// bash-3.2$ <file1 "" "" > file2
+// bash: : command not found
+// bash-3.2$ echo $?
+// 127
+// bash-3.2$ < file1 "" "" > file2
+// bash: : command not found
+// bash-3.2$ <file1 "" | "" > file2
+// bash: : command not found
+// bash: : command not found
+// bash-3.2$ ./pipex file1 "" "" file2
+// bash-3.2$ echo $?
+// 0
+// mine gives 0 is that okay?
 
-//bash-3.2$ <file--1 cat | wc -l> file2
-//bash: file--1: No such file or directory
-//pipex.c:41 geeft bad address //bash: cat: No such file or directory
-// try recreating this
+//do i understand the exit message
+
+// ------------------------------------------------------------------------

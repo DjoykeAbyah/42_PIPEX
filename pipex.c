@@ -6,57 +6,58 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:54:14 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/14 14:21:23 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/15 21:10:09 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 /* first child process */
-void	child_1(int *fd, int *pipe_fd, t_pipex *args, char **envp)
+void	child_1(int *pipe_fd, t_pipex *args, char **envp)
 {
 	char	*executable;
+	int		fd1;
 
-	close(pipe_fd[READ]);
-	fd[0] = open(args->input_file, O_RDONLY);
-	if (fd[0] == -1)
+	close_check(pipe_fd[READ]);
+	fd1 = open(args->input_file, O_RDONLY);
+	if (fd1 == -1)
 		error(args->input_file, errno);
-	dup2(fd[0], STDIN_FILENO);
+	dup2(fd1, STDIN_FILENO);
 	dup2(pipe_fd[WRITE], STDOUT_FILENO);
-	close(fd[0]);
-	close(pipe_fd[WRITE]);
-	executable = check_access(args, args->first_command[0]);
+	close_check(fd1);
+	close_check(pipe_fd[WRITE]);
+	check_executable(args->first_command)//check this function, not finished duh
+	// executable = *args->first_command;// is it okay that this doesnt include the flag?
+	// if (!executable)
+	// 	error(executable, errno);
+	// executable = check_access(args, args->first_command[0]);
+	// if (access(executable, X_OK) == -1)
+	// 	error(executable, errno);
 	if (execve(executable, args->first_command, envp) == -1)
-		error("execve_1", errno);
+		error(*args->first_command, errno);
 }
 
 /* second child process */
-void	child_2(int *fd, int *pipe_fd, t_pipex *args, char **envp)
+void	child_2(int *pipe_fd, t_pipex *args, char **envp)
 {
 	char	*executable;
+	int		fd2;
 
-	close(pipe_fd[WRITE]);
-	fd[1] = open(args->output_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd[1] == 0)
+	close_check(pipe_fd[WRITE]);
+	fd2 = open(args->output_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd2 == 0)
 		error(args->output_file, errno);
 	dup2(pipe_fd[READ], STDIN_FILENO);
-	dup2(fd[1], STDOUT_FILENO);
-	close(pipe_fd[READ]);
-	close(fd[1]);
-	executable = check_access(args, args->second_command[0]);
+	dup2(fd2, STDOUT_FILENO);
+	close_check(pipe_fd[READ]);
+	close_check(fd2);
+	check_executable(args->second_command)//check this function, not finished duh
+	// executable = *args->second_command;// is it okay that this doesnt include the flag?
+	// if (!executable)
+	// 	error(executable, errno);
+	// executable = check_access(args, args->second_command[0]);
+	// if (access(executable, X_OK) == -1)
+	// 	error(executable, errno);
 	if (execve(executable, args->second_command, envp) == -1)
-		error("execve_2", errno);
-}
-
-/* checks exit status, only needs it for the second child because 
-everything before the pipe needs no error code everything after needs it
-wait is called for child process 1 because i dont need that staus to exit*/
-void	status_check(int pid2)
-{
-	int	status;
-
-	waitpid(pid2, &status, 0);
-	wait(NULL);
-	if (WIFEXITED(status))
-		exit(WEXITSTATUS(status));
+		error(*args->second_command, errno);
 }

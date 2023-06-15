@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/14 16:37:41 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/15 21:09:14 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,22 @@ char	*check_access(t_pipex *args, char *base_command)
 	return (base_command);
 }
 
-void	error(char *string, int error)
+char	*check_executable(t_pipex *args)///can we fix it? yes we can!
 {
-	perror(string);
-	exit(error);
-}
+	int		i;
+	char	*executable;
 
-/* check if close failed meh */
-void	close_check(int num)
-{
-	if (close(num) < 0)
-		error("close", errno);
+	i = 0;
+	while (args != NULL)
+	{
+		if (!args)
+			error(args->flexible_command, yes?, errno);
+		if (args == " ")
+			error(args->flexible_command, yes?, errno);
+		i++;
+	}
+	executable = check_access(args, args->first_command[0]);
+	if (access(executable, X_OK) == -1)
+		error(executable, errno);
+	return (executable);
 }

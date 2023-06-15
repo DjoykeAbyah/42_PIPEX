@@ -1,17 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 14:17:35 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/14 16:20:51 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/15 19:18:47 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/* checks exit status, only needs it for the second child because 
+everything before the pipe needs no error code everything after needs it
+wait is called for child process 1 because i dont need that staus to exit*/
+void	status_check(int pid2)
+{
+	int	status;
+
+	waitpid(pid2, &status, 0);
+	wait(NULL);
+	if (WIFEXITED(status))
+		exit(WEXITSTATUS(status));
+}
+
+void	error(char *string, int error)
+{
+	perror(string);
+	exit(error);
+}
+
+void	close_pipes(int *pipe_fd)
+{
+	if (pipe_fd)
+	{
+		if (close(pipe_fd[0]) < 0)
+			perror("close pipes");
+		if (close(pipe_fd[1]) < 0)
+			perror("close pipes");
+	}
+}
+
+/* check if close failed misschien ook seperate pipe and fd? */
+void	close_check(int num)
+{
+	if (close(num) < 0)
+		perror("close");
+}
 
 // void	error(char *string, int error)
 // {

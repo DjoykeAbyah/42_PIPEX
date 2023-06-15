@@ -6,7 +6,7 @@
 #    By: dreijans <dreijans@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/24 17:03:57 by dreijans      #+#    #+#                  #
-#    Updated: 2023/06/13 21:05:48 by dreijans      ########   odam.nl          #
+#    Updated: 2023/06/15 17:47:05 by dreijans      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC		= \
 		main.c\
 		parse.c\
 		pipex.c\
+		utils.c\
 
 OBJ	= $(addprefix $(OBJDIR)/, $(notdir $(SRC:.c=.o)))
 
