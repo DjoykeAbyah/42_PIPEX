@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/15 21:09:14 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/16 16:01:32 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ void	parse_path(char **envp, t_pipex *args)
 			args->path = ft_split(path, ':');
 			free (path);
 			if (args->path == NULL)
-				error ("path", errno);
+				error ("malloc", errno);
+			return ;
 		}
 		i++;
 	}
+	error("pipex", errno); /// make into no such file or director error message
 }
 
 /* checks if the path acces with access() for the first command */
@@ -58,6 +60,8 @@ char	*check_access(t_pipex *args, char *base_command)
 
 	i = 0;
 	if (ft_strchr(base_command, '/'))
+		return (base_command);
+	if (access(base_command, X_OK) == 0)
 		return (base_command);
 	while (args->path && args->path[i] != NULL)
 	{
@@ -72,22 +76,11 @@ char	*check_access(t_pipex *args, char *base_command)
 	return (base_command);
 }
 
-char	*check_executable(t_pipex *args)///can we fix it? yes we can!
+/* checks if string is empty or has space at index 0 */
+void	check_space_and_null(char *string)
 {
-	int		i;
-	char	*executable;
-
-	i = 0;
-	while (args != NULL)
-	{
-		if (!args)
-			error(args->flexible_command, yes?, errno);
-		if (args == " ")
-			error(args->flexible_command, yes?, errno);
-		i++;
-	}
-	executable = check_access(args, args->first_command[0]);
-	if (access(executable, X_OK) == -1)
-		error(executable, errno);
-	return (executable);
+	if (string[0] == '\0')
+		error(string, errno);
+	if (string[0] == ' ')
+		error(string, errno);
 }

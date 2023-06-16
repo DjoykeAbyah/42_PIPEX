@@ -6,19 +6,20 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:54:14 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/15 21:10:09 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/16 15:55:49 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 /* first child process */
-void	child_1(int *pipe_fd, t_pipex *args, char **envp)
+void	child_1(int *pipe_fd, t_pipex *args, char **envp, char **argv)
 {
 	char	*executable;
 	int		fd1;
 
 	close_check(pipe_fd[READ]);
+	//access inputfile checken F_OK then R_OK
 	fd1 = open(args->input_file, O_RDONLY);
 	if (fd1 == -1)
 		error(args->input_file, errno);
@@ -26,24 +27,23 @@ void	child_1(int *pipe_fd, t_pipex *args, char **envp)
 	dup2(pipe_fd[WRITE], STDOUT_FILENO);
 	close_check(fd1);
 	close_check(pipe_fd[WRITE]);
-	check_executable(args->first_command)//check this function, not finished duh
-	// executable = *args->first_command;// is it okay that this doesnt include the flag?
-	// if (!executable)
-	// 	error(executable, errno);
-	// executable = check_access(args, args->first_command[0]);
-	// if (access(executable, X_OK) == -1)
-	// 	error(executable, errno);
+	check_space_and_null(argv[2]);
+	parse_path(envp, args);
+	executable = check_access(args, args->first_command[0]);
+	if (access(executable, X_OK) == -1)
+		error(executable, errno);
 	if (execve(executable, args->first_command, envp) == -1)
 		error(*args->first_command, errno);
 }
 
 /* second child process */
-void	child_2(int *pipe_fd, t_pipex *args, char **envp)
+void	child_2(int *pipe_fd, t_pipex *args, char **envp, char **argv)
 {
 	char	*executable;
 	int		fd2;
 
 	close_check(pipe_fd[WRITE]);
+	//access F_OK  &&  !W_OK else error
 	fd2 = open(args->output_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd2 == 0)
 		error(args->output_file, errno);
@@ -51,13 +51,11 @@ void	child_2(int *pipe_fd, t_pipex *args, char **envp)
 	dup2(fd2, STDOUT_FILENO);
 	close_check(pipe_fd[READ]);
 	close_check(fd2);
-	check_executable(args->second_command)//check this function, not finished duh
-	// executable = *args->second_command;// is it okay that this doesnt include the flag?
-	// if (!executable)
-	// 	error(executable, errno);
-	// executable = check_access(args, args->second_command[0]);
-	// if (access(executable, X_OK) == -1)
-	// 	error(executable, errno);
+	check_space_and_null(argv[3]);
+	parse_path(envp, args);
+	executable = check_access(args, args->second_command[0]);
+	if (access(executable, X_OK) == -1)
+		error(executable, errno);
 	if (execve(executable, args->second_command, envp) == -1)
 		error(*args->second_command, errno);
 }

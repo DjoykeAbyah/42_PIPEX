@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:09 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/15 19:19:58 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/16 16:01:34 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ void		print_array(char **array);
 void		parse_path(char **envp, t_pipex *args);
 char		*check_access(t_pipex *args, char *base_command);
 void		error(char *string, int error);
-void		child_1(int *pipe_fd, t_pipex *args, char **envp);
-void		child_2(int *pipe_fd, t_pipex *args, char **envp);
+void		child_1(int *pipe_fd, t_pipex *args, char **envp, char **argv);
+void		child_2(int *pipe_fd, t_pipex *args, char **envp, char **argv);
 void		status_check(int pid2);
 void		close_pipes(int *pipe_fd);
 void		close_check(int num);
+void		check_space_and_null(char *string);
+
 #endif

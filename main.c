@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/15 21:10:40 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/16 15:54:29 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,18 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 5)
 		error("./pipex: incorrect arguments", errno);
 	args = parse_args(argv);
-	parse_path(envp, args);
 	if (pipe(pipe_fd) == -1)
 		error("pipe", errno);
 	pid[0] = fork();
 	if (pid[0] < 0)
 		error("fork", errno);
 	if (pid[0] == 0)
-		child_1(pipe_fd, args, envp);
+		child_1(pipe_fd, args, envp, argv);
 	pid[1] = fork();
 	if (pid[1] < 0)
 		error("fork", errno);
 	if (pid[1] == 0)
-		child_2(pipe_fd, args, envp);
+		child_2(pipe_fd, args, envp, argv);
 	close_pipes(pipe_fd);
 	status_check(pid[1]);
 }
