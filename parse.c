@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/19 20:53:01 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/19 22:17:49 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	parse_path(char **envp, t_pipex *args)
 	i = 0;
 	while (envp[i] != NULL)
 	{
-		if (ft_strncmp(envp[i], "PATH", 4) == 0)
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
 			path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
 			args->path = ft_split(path, ':');
@@ -48,7 +48,8 @@ void	parse_path(char **envp, t_pipex *args)
 		}
 		i++;
 	}
-	path_error(*args->first_command, *args->second_command, errno);
+	// want to put this error somewhere else not needed here?????????
+	// path_error(*args->first_command, *args->second_command, errno);
 }
 
 /* checks if the path acces with access() for the first command */
@@ -60,6 +61,8 @@ char	*check_access(t_pipex *args, char *base_command)
 
 	i = 0;
 	if (ft_strchr(base_command, '/'))
+		return (base_command);
+	if (base_command[0] == '/' || ft_strncmp(base_command, "./", 2) == 0)
 		return (base_command);
 	if (access(base_command, X_OK) == 0)
 		return (base_command);

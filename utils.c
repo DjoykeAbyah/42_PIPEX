@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 14:17:35 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/19 21:05:41 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/19 22:10:46 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	null_space_error(char *string)
 	exit(127);
 }
 
-/*special error message for path*/
+// /*special error message for path*/
 void	path_error(char *string, char *string_2, int error)
 {
 	ft_putstr_fd(string, 2);
@@ -54,7 +54,7 @@ void	path_error(char *string, char *string_2, int error)
 	ft_putstr_fd(string_2, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putendl_fd("no such file or directory", 2);
-	exit(error); //change to 127?
+	exit(error);
 }
 
 void	close_pipes(int *pipe_fd)

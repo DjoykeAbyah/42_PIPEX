@@ -6,14 +6,14 @@
 #    By: dreijans <dreijans@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/24 17:03:57 by dreijans      #+#    #+#                  #
-#    Updated: 2023/06/15 17:47:05 by dreijans      ########   odam.nl          #
+#    Updated: 2023/06/19 22:10:27 by dreijans      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= pipex
 LIBFT	= ./LIBFT/libft.a
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra 
 SRC		= \
 		main.c\
 		parse.c\
