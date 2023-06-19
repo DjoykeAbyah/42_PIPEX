@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:54:14 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/16 15:55:49 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/19 19:45:56 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	child_1(int *pipe_fd, t_pipex *args, char **envp, char **argv)
 	int		fd1;
 
 	close_check(pipe_fd[READ]);
-	//access inputfile checken F_OK then R_OK
 	fd1 = open(args->input_file, O_RDONLY);
 	if (fd1 == -1)
 		error(args->input_file, errno);
@@ -43,7 +42,6 @@ void	child_2(int *pipe_fd, t_pipex *args, char **envp, char **argv)
 	int		fd2;
 
 	close_check(pipe_fd[WRITE]);
-	//access F_OK  &&  !W_OK else error
 	fd2 = open(args->output_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd2 == 0)
 		error(args->output_file, errno);

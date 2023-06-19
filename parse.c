@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/16 16:01:32 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/19 20:00:08 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	parse_path(char **envp, t_pipex *args)
 		}
 		i++;
 	}
-	error("pipex", errno); /// make into no such file or director error message
+	path_error(errno);
 }
 
 /* checks if the path acces with access() for the first command */

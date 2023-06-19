@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 14:17:35 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/15 19:18:47 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/19 20:13:48 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	status_check(int pid2)
 void	error(char *string, int error)
 {
 	perror(string);
+	exit(error);
+}
+
+void	path_error(int error)
+{
+	ft_putendl_fd("no such file or directory", 2);
 	exit(error);
 }
 
