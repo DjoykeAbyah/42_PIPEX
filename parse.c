@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/19 20:00:08 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/19 20:53:01 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	parse_path(char **envp, t_pipex *args)
 		}
 		i++;
 	}
-	path_error(errno);
+	path_error(*args->first_command, *args->second_command, errno);
 }
 
 /* checks if the path acces with access() for the first command */
@@ -80,7 +80,7 @@ char	*check_access(t_pipex *args, char *base_command)
 void	check_space_and_null(char *string)
 {
 	if (string[0] == '\0')
-		error(string, errno);
-	if (string[0] == ' ')
-		error(string, errno);
+		null_space_error("pipex: command not found\n");
+	else if (string[0] == ' ')
+		null_space_error("pipex: command not found\n");
 }

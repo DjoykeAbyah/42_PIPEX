@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:09 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/19 19:59:34 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/19 21:02:50 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void		status_check(int pid2);
 void		close_pipes(int *pipe_fd);
 void		close_check(int num);
 void		check_space_and_null(char *string);
-void		path_error(int error);
+void		path_error(char *string, char *string_2, int error);
+void		null_space_error(char *string);
+void		executable_error(char *string);
 
 #endif

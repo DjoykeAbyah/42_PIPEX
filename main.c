@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/16 15:54:29 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/19 21:00:06 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,11 @@ int	main(int argc, char **argv, char **envp)
 
 //check inner workings of status check
 //check bash error messages below
-
-//------------------------------------------------------------------------
-
-// check for empty string // do i need to give the same error message?
-// bash-3.2$ ./pipex file1 "" "" file2
-// bash-3.2$ <file1 "" "" > file2
-// bash: : command not found
-// bash-3.2$ echo $?
-// 127
-// bash-3.2$ < file1 "" "" > file2
-// bash: : command not found
-// bash-3.2$ <file1 "" | "" > file2
-// bash: : command not found
-// bash: : command not found
-// bash-3.2$ ./pipex file1 "" "" file2
-// bash-3.2$ echo $?
-// 0
-// mine gives 0 is that okay?
-
 //do i understand the exit message
 
+// cp /bin/cat .
+
+// chmod -x ./cat
+
+// ./pipex infile ls ./cat outfile
 // ------------------------------------------------------------------------
