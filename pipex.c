@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:54:14 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/20 18:23:38 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/20 19:38:31 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,11 @@ void	child_2(int *pipe_fd, t_pipex *args, char **envp, char **argv)
 		error(executable, errno);
 	if (execve(executable, args->second_command, envp) == -1)
 		error(*args->second_command, errno);
+}
+
+/* check if close failed misschien ook seperate pipe and fd? */
+void	close_check(int num)
+{
+	if (close(num) < 0)
+		perror("close");
 }

@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:09 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/20 15:30:32 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/20 19:00:24 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <errno.h>
 # include <sys/errno.h>
+# include <stdbool.h>
 
 # define READ 0
 # define WRITE 1
@@ -37,7 +38,7 @@ typedef struct s_pipex
 
 t_pipex		*parse_args(char **argv);
 void		print_array(char **array);
-void		parse_path(char **envp, t_pipex *args);
+bool		parse_path(char **envp, t_pipex *args);
 char		*check_access(char **envp, t_pipex *args, char *base_command);
 void		error(char *string, int error);
 void		child_1(int *pipe_fd, t_pipex *args, char **envp, char **argv);
