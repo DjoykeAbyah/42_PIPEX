@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 14:17:35 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/20 15:28:00 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/20 18:12:10 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,21 @@ void	status_check(int pid2)
 		exit(WEXITSTATUS(status));
 }
 
+/* error message with perror */
 void	error(char *string, int error)
 {
 	perror(string);
 	exit(error);
 }
 
+/* error when space or empty string is found */
 void	null_space_error(char *string, int error)
 {
 	ft_putstr_fd(string, 2);
 	exit(error);
 }
 
+/* closes pipes and checks if it succeeded */
 void	close_pipes(int *pipe_fd)
 {
 	if (pipe_fd)
@@ -48,6 +51,7 @@ void	close_pipes(int *pipe_fd)
 	}
 }
 
+/* gives custom error when command is not found */
 void	command_error(char *string, int error)
 {
 	ft_putstr_fd(string, 2);
