@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 14:17:35 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/20 11:51:08 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/20 15:28:00 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,10 @@ void	close_pipes(int *pipe_fd)
 	}
 }
 
-// void	executable_error(char *string, int error)
-// {
-// 	perror(string);
-// 	// ft_putstr_fd(string, 2);
-// 	// ft_putstr_fd(": ", 2);
-// 	// ft_putendl_fd("cheeseball Permission denied", 2);
-// 	exit(error);//126
-// }
-
-// // /*special error message for path*/
-// void	path_error(char *string, char *string_2, int error)
-// {
-// 	ft_putstr_fd(string, 2);
-// 	ft_putstr_fd(": ", 2);
-// 	ft_putendl_fd("no such file or directory", 2);
-// 	ft_putstr_fd(string_2, 2);
-// 	ft_putstr_fd(": ", 2);
-// 	ft_putendl_fd("no such file or directory", 2);
-// 	exit(error);//127
-// }
+void	command_error(char *string, int error)
+{
+	ft_putstr_fd(string, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd("Command not found", 2);
+	exit(error);
+}

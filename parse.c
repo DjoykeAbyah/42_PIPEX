@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/20 11:53:30 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/20 15:35:42 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,17 @@ t_pipex	*parse_args(char **argv)
 void	parse_path(char **envp, t_pipex *args)
 {
 	int		i;
-	char	*path;	
+	char	*temp_path;	
 
 	i = 0;
+	temp_path = NULL;
 	while (envp[i] != NULL)
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
-			path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
-			args->path = ft_split(path, ':');
-			free (path);
+			temp_path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
+			args->path = ft_split(temp_path, ':');
+			free (temp_path);
 			if (args->path == NULL)
 				error ("malloc", errno);
 			return ;
@@ -51,29 +52,31 @@ void	parse_path(char **envp, t_pipex *args)
 }
 
 /* checks if the path acces with access() for the first command */
-char	*check_access(t_pipex *args, char *base_command)
+char	*check_access(char **envp, t_pipex *args, char *base_command)
 {
-	char	*path;
+	char	*ok_path;
 	char	*command;
 	int		i;
 
 	i = 0;
-	if (ft_strchr(base_command, '/'))
+	ok_path = NULL;
+	if (!ft_strncmp(base_command, "./", 2) && access(base_command, F_OK) == 0)
 		return (base_command);
-	if (base_command[0] == '/' || ft_strncmp(base_command, "./", 2) == 0)
+	if (access(base_command, F_OK || X_OK) == 0)
 		return (base_command);
-	if (access(base_command, X_OK) == 0)
-		return (base_command);
+	parse_path(envp, args);
 	while (args->path && args->path[i] != NULL)
 	{
 		command = ft_strjoin("/", base_command);
-		path = ft_strjoin(args->path[i], command);
+		ok_path = ft_strjoin(args->path[i], command);
 		free(command);
-		if (access(path, F_OK) == 0)
-			return (path);
-		free(path);
+		if (access(ok_path, F_OK) == 0)
+			return (ok_path);
+		free(ok_path);
 		i++;
 	}
+	if (access(ok_path, F_OK) != 0)
+		command_error(base_command, errno);
 	return (base_command);
 }
 
