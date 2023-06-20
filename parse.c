@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/19 22:17:49 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/20 11:18:08 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,14 @@ char	*check_access(t_pipex *args, char *base_command)
 void	check_space_and_null(char *string)
 {
 	if (string[0] == '\0')
-		null_space_error("pipex: command not found\n");
+		null_space_error("pipex: command not found\n", errno);
 	else if (string[0] == ' ')
-		null_space_error("pipex: command not found\n");
+		null_space_error("pipex: command not found\n", errno);
+}
+
+/* check if close failed misschien ook seperate pipe and fd? */
+void	close_check(int num)
+{
+	if (close(num) < 0)
+		perror("close");
 }

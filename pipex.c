@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:54:14 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/19 21:03:27 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/20 11:11:58 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	child_1(int *pipe_fd, t_pipex *args, char **envp, char **argv)
 	parse_path(envp, args);
 	executable = check_access(args, args->first_command[0]);
 	if (access(executable, X_OK) == -1)
-		executable_error(executable);
+		error(executable, errno);
 	if (execve(executable, args->first_command, envp) == -1)
 		error(*args->first_command, errno);
 }
@@ -53,7 +53,7 @@ void	child_2(int *pipe_fd, t_pipex *args, char **envp, char **argv)
 	parse_path(envp, args);
 	executable = check_access(args, args->second_command[0]);
 	if (access(executable, X_OK) == -1)
-		executable_error(executable);
+		error(executable, errno);
 	if (execve(executable, args->second_command, envp) == -1)
 		error(*args->second_command, errno);
 }

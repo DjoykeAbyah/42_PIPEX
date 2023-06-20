@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/19 22:19:43 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/20 10:55:57 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int	main(int argc, char **argv, char **envp)
 // -----------------------------------------------------------------------
 
 //check inner workings of status check
-//check bash error messages below
-//do i understand the exit message
 
 // cp /bin/cat .
 
@@ -59,14 +57,12 @@ int	main(int argc, char **argv, char **envp)
 // ./pipex infile ls ./cat outfile
 
 // ./pipex Makefile ./cat cat file2
-// not this!!! please
-// ./cat: no such file or directory
-// cat: no such file or directory
-// ./cat: no such file or directory
-// cat: no such file or directory
+//
 
-// bash-3.2$ ./pipex file1 "" "" file2
-// pipex: command not found
-// pipex: command not found  gives errno error needs personalised?
+// ./cat: no such file or directory
+// cat: no such file or directory
+//mine
+// ./cat: Permission denied
+
 // parse.c 51, 52??
 // ------------------------------------------------------------------------
