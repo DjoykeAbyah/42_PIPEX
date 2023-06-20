@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/20 10:55:57 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/20 11:53:46 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ int	main(int argc, char **argv, char **envp)
 // cat: no such file or directory
 //mine
 // ./cat: Permission denied
+
+// want to put this error somewhere else not needed here?????????
+// path_error(*args->first_command, *args->second_command, errno);
 
 // parse.c 51, 52??
 // ------------------------------------------------------------------------

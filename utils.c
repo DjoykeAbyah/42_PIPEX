@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 14:17:35 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/20 11:15:26 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/20 11:51:08 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	close_pipes(int *pipe_fd)
 	if (pipe_fd)
 	{
 		if (close(pipe_fd[0]) < 0)
-			//ft_putstr_fd("pipes :, 2");?
 			perror("close");
 		if (close(pipe_fd[1]) < 0)
 			perror("close");

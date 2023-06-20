@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/20 11:18:08 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/20 11:53:30 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	parse_path(char **envp, t_pipex *args)
 		}
 		i++;
 	}
-	// want to put this error somewhere else not needed here?????????
-	// path_error(*args->first_command, *args->second_command, errno);
 }
 
 /* checks if the path acces with access() for the first command */
