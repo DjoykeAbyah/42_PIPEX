@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:54:14 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/20 18:14:01 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/20 18:23:38 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	child_1(int *pipe_fd, t_pipex *args, char **envp, char **argv)
 	fd1 = open(args->input_file, O_RDONLY);
 	if (fd1 == -1)
 		error(args->input_file, errno);
-	dup2(fd1, STDIN_FILENO);
-	dup2(pipe_fd[WRITE], STDOUT_FILENO);
+	if (dup2(fd1, STDIN_FILENO) == -1)
+		error("dup2", errno);
+	if (dup2(pipe_fd[WRITE], STDOUT_FILENO) == -1)
+		error("dup2", errno);
 	close_check(fd1);
 	close_check(pipe_fd[WRITE]);
 	check_space_and_null(argv[2]);
@@ -44,8 +46,10 @@ void	child_2(int *pipe_fd, t_pipex *args, char **envp, char **argv)
 	fd2 = open(args->output_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd2 == 0)
 		error(args->output_file, errno);
-	dup2(pipe_fd[READ], STDIN_FILENO);
-	dup2(fd2, STDOUT_FILENO);
+	if (dup2(pipe_fd[READ], STDIN_FILENO) == -1)
+		error("dup2", errno);
+	if (dup2(fd2, STDOUT_FILENO) == -1)
+		error("dup2", errno);
 	close_check(pipe_fd[READ]);
 	close_check(fd2);
 	check_space_and_null(argv[3]);
