@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/24 17:03:21 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/20 18:47:57 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/06/21 16:40:34 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,16 @@ int	main(int argc, char **argv, char **envp)
 	close_pipes(pipe_fd);
 	status_check(pid[1]);
 }
+
+/*
+➜ bash
+bash-3.2$ unset PATH
+bash-3.2$ <infile test | test >outfile
+bash-3.2$ cat outfile
+bash: cat: Permission denied
+bash-3.2$ exit
+exit
+
+cat outfile
+hi caya ->  (./test)
+*/
