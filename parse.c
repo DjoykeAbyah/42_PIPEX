@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/09 16:53:00 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/20 19:38:38 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/07/17 17:12:41 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ bool	parse_path(char **envp, t_pipex *args)
 		{
 			temp_path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
 			if (temp_path == NULL)
-				error ("malloc", errno);
+				ft_error ("malloc", errno);
 			args->path = ft_split(temp_path, ':');
 			if (args->path == NULL)
-				error ("malloc", errno);
+				ft_error ("malloc", errno);
 			free (temp_path);
 			if (args->path == NULL)
-				error ("malloc", errno);
+				ft_error ("malloc", errno);
 			return (true);
 		}
 		i++;
@@ -55,14 +55,15 @@ bool	parse_path(char **envp, t_pipex *args)
 	return (false);
 }
 
-void	path_check(char *base_command)
+bool	absolute_check(char *base_command)
 {
 	if (!ft_strncmp(base_command, "/", 1) && access(base_command, F_OK) == 0)
-		return (base_command);
+		return (true);
 	if (!ft_strncmp(base_command, "./", 2) && access(base_command, F_OK) == 0)
-		return (base_command);
+		return (true);
 	if (!ft_strncmp(base_command, "../", 3) && access(base_command, F_OK) == 0)
-		return (base_command);
+		return (true);
+	return (false);
 }
 
 /* checks if the path acces with access() for the first command */
@@ -73,17 +74,16 @@ char	*check_access(char **envp, t_pipex *args, char *base_command)
 	int		i;
 
 	i = 0;
-	path_check(base_command);
-	if (parse_path(envp, args))
-	{	
+	if (!absolute_check(base_command) && parse_path(envp, args))
+	{
 		while (args->path && args->path[i] != NULL)
 		{
 			command = ft_strjoin("/", base_command);
 			if (command == NULL)
-				error("malloc", errno);
+				ft_error("malloc", errno);
 			ok_path = ft_strjoin(args->path[i], command);
 			if (command == NULL)
-				error("malloc", errno);
+				ft_error("malloc", errno);
 			free(command);
 			if (access(ok_path, F_OK) == 0)
 				return (ok_path);

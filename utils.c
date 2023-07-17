@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 14:17:35 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/06/20 19:06:50 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/07/17 17:14:56 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	status_check(int pid2)
 }
 
 /* error message with perror */
-void	error(char *string, int error)
+void	ft_error(char *string, int error)
 {
 	perror(string);
 	exit(error);
