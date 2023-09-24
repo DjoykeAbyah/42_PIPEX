@@ -1,4 +1,4 @@
-```markdown
+
 # Pipex Project :computer:
 
 ## Summary :page_with_curl:
@@ -28,7 +28,7 @@ Also when a command fails or doesnt exist you don't always exit the entire progr
 Your program will be executed as follows:
 ```shell
 ./pipex file1 cmd1 cmd2 file2
-```
+
 
 The program takes 4 arguments:
 - `file1` and `file2` are file names.
